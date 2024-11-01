@@ -1,0 +1,6 @@
+@USchedule.Web_HostAddress = http://localhost:5107
+
+GET {{USchedule.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
