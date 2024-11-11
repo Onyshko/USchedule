@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Text;
 using USchedule.Domain.Entities;
 using USchedule.Repository.Context;
+using USchedule.Repository.Models;
+using USchedule.Repository.Utility.Registrations;
 using USchedule.Repository.Utility.SeedConfiguration;
+using USchedule.Service.Utility.Exceptions;
+using USchedule.Service.Utility.Registrations;
 using USchedule.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,12 +34,34 @@ builder.Services.AddIdentity<User, Role>(opt =>
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
     opt.TokenLifespan = TimeSpan.FromHours(2));
 
+var jwtSettingsJson = builder.Configuration["JWTSettings"];
+var jwtSettings = JsonConvert.DeserializeObject<JwtSettingsModel>(jwtSettingsJson!);
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings!.ValidIssuer!.ToString(),
+        ValidAudience = jwtSettings.ValidAudience!.ToString(),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecurityKey!.ToString()!))
+    };
+    builder.Configuration.Bind("JwtSettings", options);
+});
 
 
 var superAdminJson = builder.Configuration["SuperAdmin"];
 var superAdmin = JsonConvert.DeserializeObject<SuperAdminModel>(superAdminJson!);
 
 builder.Services.AddSingleton(superAdmin!);
+builder.Services.AddSingleton(jwtSettings!);
 
 
 
@@ -40,6 +69,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddRepositoryLayerRegistration();
+builder.Services.AddServiceLayerRegistration();
 
 
 var app = builder.Build();
@@ -64,8 +97,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureCustomExceptionMiddleware();
+
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
