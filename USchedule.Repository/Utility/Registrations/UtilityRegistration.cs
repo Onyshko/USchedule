@@ -10,6 +10,7 @@ namespace USchedule.Repository.Utility.Registrations
         public static void AddUtilityRegistration(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddSingleton<JwtHandler>();
         }

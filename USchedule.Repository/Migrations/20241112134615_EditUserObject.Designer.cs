@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using USchedule.Repository.Context;
 
@@ -11,9 +12,11 @@ using USchedule.Repository.Context;
 namespace USchedule.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241112134615_EditUserObject")]
+    partial class EditUserObject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,6 +128,21 @@ namespace USchedule.Repository.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
+                });
+
             modelBuilder.Entity("USchedule.Domain.Entities.Entry", b =>
                 {
                     b.Property<Guid>("Id")
@@ -209,115 +227,115 @@ namespace USchedule.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("59ee1046-3248-4853-bc81-65252c28553e"),
+                            Id = new Guid("eb599993-72b9-4b53-bb57-60f142137c28"),
                             Address = "вул. Грушевського, 4, м. Львів 79005, Україна",
                             Name = "Біологічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("00d42ddf-e398-46ae-b5aa-7fe556628a55"),
+                            Id = new Guid("e8ad3d33-2f15-4c4f-8ce3-d243489a9277"),
                             Address = "вул. Дорошенка, 41, м. Львів, 79000, Україна",
                             Name = "Географічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("2c7cadf6-b106-47c0-b1be-6eaab5c2aa15"),
+                            Id = new Guid("8ac83cbb-ae28-4c3e-af3c-3690540fc55d"),
                             Address = "вул. Грушевського, 4, м. Львів 79005, Україна",
                             Name = "Геологічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("dbee3810-8fcf-4d4d-b4b3-5423be292fc8"),
+                            Id = new Guid("bac595e9-9cf5-4122-be7b-ea1b2de88e8d"),
                             Address = "проспект Свободи, 18, м. Львів, 79008, Україна",
                             Name = "Економічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("17435162-6be8-4b46-ad32-ef002e9412f3"),
+                            Id = new Guid("860e595b-e777-4e46-92b1-66c32b2c9b57"),
                             Address = "вул. Драгоманова, 50, м. Львів, 79005, Україна",
                             Name = "Факультет електроніки та комп’ютерних технологій"
                         },
                         new
                         {
-                            Id = new Guid("a6cc5cbb-57b3-44dd-b114-f154be7e3c18"),
+                            Id = new Guid("7f3b8aa3-d9b9-4fa5-a8ab-d4cf467c80f0"),
                             Address = "вул. Генерала Чупринки, 49, м. Львів, 79044, Україна",
                             Name = "Факультет журналістики"
                         },
                         new
                         {
-                            Id = new Guid("f2fde27d-8fe7-4e08-b8b6-77caba6c2849"),
+                            Id = new Guid("e62bf165-d39c-4291-8277-cfe62a40c15f"),
                             Address = "вул. Університетська 1/415, м. Львів, 79000, Україна",
                             Name = "Факультет іноземних мов"
                         },
                         new
                         {
-                            Id = new Guid("8114edc1-2c58-4eab-b064-51ba5cc3a733"),
+                            Id = new Guid("96fb77c4-58ac-4170-8765-9b4f5b634f60"),
                             Address = "вул. Університетська, 1, м. Львів, 79000, Україна",
                             Name = "Історичний факультет"
                         },
                         new
                         {
-                            Id = new Guid("528978b7-cd82-49fa-894b-cedf912586b6"),
+                            Id = new Guid("e7116453-183f-44ce-8dd9-e5e3117fca09"),
                             Address = "вул. Валова,18, м. Львів, 79008, Україна",
                             Name = "Факультет культури і мистецтв"
                         },
                         new
                         {
-                            Id = new Guid("e873f075-1ce5-436b-829e-5aa8b2c9a34a"),
+                            Id = new Guid("4da387f8-291b-43bb-ba3f-da11336f6555"),
                             Address = "вул. Університетська, 1 м. Львів, 79000, Україна",
                             Name = "Механіко-математичний факультет"
                         },
                         new
                         {
-                            Id = new Guid("a8fdeb2f-1fc3-42a7-b35c-2a74d8cad926"),
+                            Id = new Guid("6bcf2fbb-8f04-4d6f-81d7-2867e9a9c774"),
                             Address = "вул. Січових Стрільців, 19, м. Львів, 79000, Україна",
                             Name = "Факультет міжнародних відносин"
                         },
                         new
                         {
-                            Id = new Guid("6012a580-0c3a-4c08-bacc-2523dbda8cc8"),
+                            Id = new Guid("5331a84b-d7ce-48e3-a630-02eb0551c829"),
                             Address = "вул. Туган-Барановського, 7, м. Львів, 79000, Україна",
                             Name = "Факультет педагогічної освіти"
                         },
                         new
                         {
-                            Id = new Guid("d08caa39-9276-4216-bfa4-193f0842e2cf"),
+                            Id = new Guid("c6b26218-9406-4dc6-b084-ef2c3b6b1f08"),
                             Address = "вул. Університетська 1, м. Львів, 79000, Україна",
                             Name = "Факультет прикладної математики та інформатики"
                         },
                         new
                         {
-                            Id = new Guid("64a2252c-a293-4bc6-b9ca-f88ad83a3238"),
+                            Id = new Guid("a4397c08-e509-4d89-903f-db3ff25107f6"),
                             Address = "вул. Коперника, 3, м. Львів, 79000, Україна",
                             Name = "Факультет управління фінансами та бізнесу"
                         },
                         new
                         {
-                            Id = new Guid("75ee959f-54db-4eaa-ba45-c6dede1e6655"),
+                            Id = new Guid("eff0bdf2-0d03-475c-8556-5440fa4c5773"),
                             Address = "вул. Кирила і Мефодія, 8, м. Львів, 79005, Україна",
                             Name = "Фізичний факультет"
                         },
                         new
                         {
-                            Id = new Guid("449979b9-718c-4855-b95b-41bed68d8efb"),
+                            Id = new Guid("3acee6c8-1e92-4d1d-a38a-272372d24158"),
                             Address = "вул. Університетська, 1, кімната 232, м. Львів, 79000, Україна",
                             Name = "Філологічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("d248486a-cf13-4a67-a820-4781a5196a08"),
+                            Id = new Guid("d1db4f95-b3ca-410d-a683-9b3a0342d9de"),
                             Address = "вул. Університетська, 1, м. Львів, 79001, Україна",
                             Name = "Філософський факультет"
                         },
                         new
                         {
-                            Id = new Guid("24246fdf-42d2-49cb-8701-c79451741da6"),
+                            Id = new Guid("0d04d34f-0364-427e-b7fc-b33ca742c04d"),
                             Address = "вул. Кирила і Мефодія, 6, м. Львів, 79005, Україна",
                             Name = "Хімічний факультет"
                         },
                         new
                         {
-                            Id = new Guid("b3b1da37-a6b0-4c00-805c-13613f6e1e45"),
+                            Id = new Guid("916007a9-9553-4f97-85e7-04bb4a5a2877"),
                             Address = "вул. Січових Стрільців, 14, м. Львів, 79000, Україна",
                             Name = "Юридичний факультет"
                         });
@@ -490,9 +508,6 @@ namespace USchedule.Repository.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -517,8 +532,6 @@ namespace USchedule.Repository.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -570,6 +583,21 @@ namespace USchedule.Repository.Migrations
                     b.HasOne("USchedule.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("USchedule.Domain.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("USchedule.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -658,13 +686,6 @@ namespace USchedule.Repository.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("USchedule.Domain.Entities.User", b =>
-                {
-                    b.HasOne("USchedule.Domain.Entities.Role", null)
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
-                });
-
             modelBuilder.Entity("USchedule.Domain.Entities.Faculty", b =>
                 {
                     b.Navigation("Entries");
@@ -675,11 +696,6 @@ namespace USchedule.Repository.Migrations
                     b.Navigation("StudentGroups");
 
                     b.Navigation("TeacherSubjectGroups");
-                });
-
-            modelBuilder.Entity("USchedule.Domain.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("USchedule.Domain.Entities.Subject", b =>
