@@ -1,4 +1,4 @@
-﻿namespace USchedule.Service.Models
+﻿namespace USchedule.Service.Models.AccountModels
 {
     public class AuthenticationResponsModel
     {

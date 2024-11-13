@@ -10,5 +10,7 @@ namespace USchedule.Repository.Interfaces
         Task SaveChangesAsync();
 
         IUserAccountRepository UserAccountRepository();
+
+        IEmailSender EmailSender();
     }
 }

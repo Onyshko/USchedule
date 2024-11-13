@@ -8,7 +8,7 @@ namespace USchedule.Web.Controllers
     public class SubjectController : ControllerBase
     {
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> TestAction()
         {
             return Ok("Test passed!");

@@ -56,12 +56,22 @@ builder.Services.AddAuthentication(opt =>
     builder.Configuration.Bind("JwtSettings", options);
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyAdminUsers",
+        policy => policy.RequireRole("Admin", "SuperAdmin"));
+});
+
 
 var superAdminJson = builder.Configuration["SuperAdmin"];
 var superAdmin = JsonConvert.DeserializeObject<SuperAdminModel>(superAdminJson!);
 
+var emailConfigurationJson = builder.Configuration["EmailConfiguration"];
+var emailConfiguration = JsonConvert.DeserializeObject<EmailConfiguration>(emailConfigurationJson!);
+
 builder.Services.AddSingleton(superAdmin!);
 builder.Services.AddSingleton(jwtSettings!);
+builder.Services.AddSingleton(emailConfiguration!);
 
 
 

@@ -2,6 +2,7 @@
 using USchedule.Domain.Entities;
 using USchedule.Repository.Context;
 using USchedule.Repository.Interfaces;
+using USchedule.Repository.Models;
 
 namespace USchedule.Repository.Implementations
 {
@@ -9,15 +10,19 @@ namespace USchedule.Repository.Implementations
     {
         private Dictionary<Type, object> _repositories;
         private IUserAccountRepository _userAccountRepository;
+        private IEmailSender _emailSender;
         private readonly DatabaseContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly EmailConfiguration _emailConfig;
 
         public UnitOfWork(DatabaseContext context,
-                          UserManager<User> userManager)
+                          UserManager<User> userManager,
+                          EmailConfiguration emailConfig)
         {
             _context = context;
             _repositories = new Dictionary<Type, object>();
             _userManager = userManager;
+            _emailConfig = emailConfig;
         }
 
         public IBaseRepository<TEntity> GetRepository<TEntity>()
@@ -44,5 +49,7 @@ namespace USchedule.Repository.Implementations
         }
 
         public IUserAccountRepository UserAccountRepository() => _userAccountRepository ??= new UserAccountRepository(_userManager);
+
+        public IEmailSender EmailSender() => _emailSender ??= new EmailSender(_emailConfig);
     }
 }

@@ -7,6 +7,7 @@ namespace USchedule.Service.Utility.Registrations
         public static void AddServiceLayerRegistration(this IServiceCollection services)
         {
             services.AddServiceRegistration();
+            services.AddMapperRegistration();
         }
     }
 }
