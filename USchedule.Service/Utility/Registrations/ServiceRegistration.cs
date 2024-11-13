@@ -10,6 +10,7 @@ namespace USchedule.Service.Utility.Registrations
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ISubjectService, SubjectService>();
         }
     }
 }

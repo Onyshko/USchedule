@@ -47,7 +47,7 @@ namespace USchedule.Web.Controllers
 
             await _userService.EmailCheckAsync(email, emailToken);
             await _userService.ResetPasswordAsync(resetPasswordModel, passwordToken);
-            return Ok();
+            return Ok("User has been confirmed.");
         }
 
         [HttpPost("forgotpassword")]
@@ -68,7 +68,7 @@ namespace USchedule.Web.Controllers
                 throw new Exception();
 
             await _userService.ResetPasswordAsync(resetPasswordModel, passwordToken);
-            return Ok();
+            return Ok("Password has been recreated.");
         }
 
         [HttpGet("users")]
@@ -94,7 +94,7 @@ namespace USchedule.Web.Controllers
         {
             await _userService.UpdateUserAsync(userModel);
 
-            return Ok();
+            return Ok("User has been updated.");
         }
 
         [HttpDelete]
@@ -103,7 +103,7 @@ namespace USchedule.Web.Controllers
         {
             await _userService.DeleteUserAsync(userModel);
 
-            return Ok();
+            return Ok("User has been deleted.");
         }
     }
 }
