@@ -9,9 +9,9 @@ namespace USchedule.Web.Controllers
     [ApiController]
     public class SubjectController : ControllerBase
     {
-        private readonly ISubjectService _subjectService;
+        private readonly IBaseCrudService<SubjectModel> _subjectService;
 
-        public SubjectController(ISubjectService subjectService)
+        public SubjectController(IBaseCrudService<SubjectModel> subjectService)
         {
             _subjectService = subjectService;
         }
@@ -20,7 +20,7 @@ namespace USchedule.Web.Controllers
         [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> CreateSubject(SubjectModel subjectModel)
         {
-            await _subjectService.CreateSubjectAsync(subjectModel);
+            await _subjectService.CreateAsync(subjectModel);
 
             return Ok("Subject has been created.");
         }
@@ -29,7 +29,7 @@ namespace USchedule.Web.Controllers
         [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> GetAllSubjects()
         {
-            var subjects = await _subjectService.GetAllSubjectAsync();
+            var subjects = await _subjectService.GetAllAsync();
 
             return Ok(subjects);
         }
@@ -38,7 +38,7 @@ namespace USchedule.Web.Controllers
         [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> GetSubject(Guid id)
         {
-            var subject = await _subjectService.GetSubjectAsync(id);
+            var subject = await _subjectService.GetAsync(id);
 
             return Ok(subject);
         }
@@ -47,7 +47,7 @@ namespace USchedule.Web.Controllers
         [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> UpdateSubject([FromBody] SubjectModel subjectModel)
         {
-            await _subjectService.UpdateSubjectAsync(subjectModel);
+            await _subjectService.UpdateAsync(subjectModel);
 
             return Ok("Subject has been updated.");
         }
@@ -56,7 +56,7 @@ namespace USchedule.Web.Controllers
         [Authorize(Policy = "OnlyAdminUsers")]
         public async Task<IActionResult> DeleteSubject([FromBody] SubjectModel subjectModel)
         {
-            await _subjectService.DeleteSubjectAsync(subjectModel);
+            await _subjectService.DeleteAsync(subjectModel);
 
             return Ok("Subject has been deleted.");
         }
